@@ -23,7 +23,7 @@ function Cadastro () {
                     setSensores(res.data)
             }
         )
-        },[])
+        },[baseURL])
 
     const inputvalues = async (name,id_sensor,loc,max, min) =>{
         try{
@@ -40,6 +40,7 @@ function Cadastro () {
             
             window.location.reload();
         })
+        setSensor("");
     }catch{
             alert("Servidor offline. Contatar engenharia de teste!");
 

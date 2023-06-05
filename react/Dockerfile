@@ -5,7 +5,7 @@ FROM node:alpine as build-stage
 
 WORKDIR /app
 
-COPY ./app/package*.json ./
+COPY ./app_react/package*.json ./
 RUN yarn install
 
 COPY ./app_react/ /app/

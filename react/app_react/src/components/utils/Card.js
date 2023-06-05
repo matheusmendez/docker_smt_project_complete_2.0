@@ -19,9 +19,7 @@ function Card(Props){
                 card: sensor
             }).then((res)=>{
                     if(res.data){
-                    setValues(res.data)
-                    const fontTemp = document.getElementById("temp")
-            
+                    setValues(res.data)           
                
             }
                 }
@@ -37,7 +35,7 @@ function Card(Props){
             const interval = setInterval(fetchData, 10000); 
 
             return () => clearInterval(interval);
-    },[sensor])
+    },[sensor,baseURL])
 
     
 
@@ -47,6 +45,10 @@ function Card(Props){
                 {typeof values !== "undefined" && values.map(
                     (values) =>{
                     var date = new Date(values.date_time);
+                    var hora = date.getUTCHours();
+                    var min = date.getUTCMinutes();
+                
+                    var f = `${hora}:${min}`
                      return(
                             <> 
                                     <Link to={`/rel_inc?sensor=${Props.sensor}&name=${Props.name}`} id="Link">
@@ -58,7 +60,7 @@ function Card(Props){
                                         <h2 style={{color: parseFloat(values.humi_value) >=  parseFloat(Props.max_humi) ? "Tomato" : parseFloat(values.humi_value) <= parseFloat(Props.min_humi) ? "SkyBlue" : "White",}}>
                                             Humidade: {values.humi_value} %
                                         </h2>
-                                        <h5>Última atualização: {date.toLocaleTimeString()}</h5>
+                                        <h5>Última atualização: {f}</h5>
                                         </div>
                                     </Link>
                             </>

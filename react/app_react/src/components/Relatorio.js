@@ -2,7 +2,7 @@ import React,{useState,useEffect} from "react";
 import "./style/Relatorio.css"
 import * as XLSX from "xlsx"
 import axios from "axios";
-import {Formik, Form, Field, ErrorMessage} from "formik";
+import {Formik, Form, Field} from "formik";
 
 
 
@@ -20,7 +20,7 @@ function Relatorio () {
                     setSensores(res.data)
             }
         )
-        },[])
+        },[baseURL])
    
 
 

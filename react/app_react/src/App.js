@@ -7,7 +7,7 @@ import Home from './components/Home'
 import Relatorio from './components/Relatorio';
 import Cadastro from './components/Cadastro'
 import jwtDecode from 'jwt-decode';
-import Rel_inc from './components/utils/Relat_in';
+import RelInc from './components/utils/RelInc';
 
 function App() {
 
@@ -63,7 +63,7 @@ function App() {
               <Route path='/home' element={<Home/>} />
               <Route path='/relatorio' element={requireAuth(<Relatorio/>)}/>
               <Route path='/modify' element={requireAuth(<Cadastro />)}/>
-              <Route path='/Rel_inc' element={<Rel_inc/>} />
+              <Route path='/Rel_inc' element={<RelInc/>} />
           </Routes>
        </BrowserRouter>
     </div>

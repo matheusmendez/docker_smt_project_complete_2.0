@@ -2,7 +2,6 @@ import React,{useState,useEffect} from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import "./Rel.css"
-import * as XLSX from 'xlsx';
 import {Line} from 'react-chartjs-2'
 import {
     Chart as ChartJS,
@@ -21,7 +20,7 @@ ChartJS.register(
 )
 
 
-function Rel_inc () {
+function RelInc () {
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const sensor = searchParams.get('sensor');
@@ -44,17 +43,17 @@ function Rel_inc () {
             .then((response) =>{
                 setuniValue(response.data);
             })
-        }, [] )
+        }, [baseURL, sensor] )
     
     
     uniValue.map( (res) => {
-        temp.push(parseFloat(res.temp_value))
+        return temp.push(parseFloat(res.temp_value))
     })
     
     
     
     uniValue.map( (res) => {
-        humi.push(parseFloat(res.humi_value))
+        return humi.push(parseFloat(res.humi_value))
     })
     
     function Media (value){
@@ -117,14 +116,6 @@ function Rel_inc () {
         ]
     }
 
-    const down = () =>{
-        
-        const planilha = XLSX.utils.json_to_sheet(uniValue);
-        const workbook = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(workbook, planilha, 'Sheet1');
-        XLSX.writeFile(workbook, 'Relatório.xlsx');
-       
-    }
    
     
     const options = {
@@ -202,4 +193,4 @@ function Rel_inc () {
     )
 }
 
-export default Rel_inc
+export default RelInc
