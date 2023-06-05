@@ -1,0 +1,137 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container{
+    width: 100%;
+    height: 100vh;
+    background-color: #dbdbdb;
+    display: flex;
+    align-items: center;
+    overflow: auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.formcad input[type=date]{
+    width: 90%;
+    height: 15%;
+    font-size: 20px;
+    margin: 5%;
+}
+
+.input_func{
+    height: 40px;
+    font-size: 100%;
+    margin: 3%;
+}
+
+@media screen and (max-width:768px) {
+    .h50{
+        width: 300px;
+    }
+    .container{
+        flex-wrap: wrap;
+        overflow: scroll;
+    }
+}
+
+.descricao .descricao_input{
+    float: center;
+    padding-left:15px;
+    border-radius:5px;
+    font-size:18px;
+    height:50px;
+    width:100%;
+    margin: 1%;
+  }
+
+ 
+
+input{
+    width: 80%;
+}
+
+select{
+    float: center;
+    width: 80%;
+}
+
+
+
+form{
+    width: 100%;
+    padding: 40px;
+}
+
+.h50{
+    border-radius: 2%;
+    color: white;
+    width: 30%;
+    margin-left: 2.5%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(0, 48, 54);;
+}
+
+h4{
+    margin-left: 2%;
+    margin: 1%;
+
+}
+
+button{
+    background-color: rgb(0, 112, 94);
+    padding-left:10px;
+    display: block;
+    width: 70%;
+    border-radius: 5px;
+    font-size: 16px;
+    height: 35px;
+    max-width: 500px;
+    border: 1px solid #8a8a8a;
+}
+
+h1{
+    margin-bottom: 5%;
+    font-size: 30px;
+}
+
+.teste{
+    margin-top:10%
+}
+
+.action{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2px 2px 2px 2px;
+}
+
+.action button{
+    color:white;
+    margin-top: 5%;
+    text-align: center;
+    font-size: 130%;
+}
+
+.action  .descricao_input{
+    float: center;
+    padding-left:15px;
+    border-radius:5px;
+    font-size:18px;
+    height:50px;
+    width:80%;
+    margin: 1%;
+  }
+
+.action p{
+    margin-top:5%;
+    margin-bottom: 10%;
+}

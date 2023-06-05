@@ -1,0 +1,58 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.card{
+    margin: 5%;
+    width: 24.438rem;
+    height: 12.7000rem;
+    border: solid 5px;
+    text-align: center;
+    display: flex;
+    margin-right: 5%;
+    margin-left: 5%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    border-width: 10px;
+    color:white;
+    border-color: rgb(255, 255, 255); 
+}
+
+.card h2{
+    margin: 2%;
+}
+
+
+.canva{
+    display:flex;
+    justify-content: center;
+}
+
+#Link{
+    margin-left: 5%;
+    margin-right: 5% ;
+    text-decoration: none;
+}
+
+h5{
+    margin-top: 2%;
+}
+
+@keyframes piscar {
+    0% {
+      color: white;
+      border-color: white;
+    }
+    50% {
+      color: Tomato;
+      border-color: Tomato;
+    }
+    100% {
+      color: white;
+      border-color: white;
+    }
+  }

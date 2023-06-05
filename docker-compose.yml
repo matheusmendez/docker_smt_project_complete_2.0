@@ -1,0 +1,120 @@
+services:
+  mysql:
+    build: ./mysql
+    container_name: mysql-container
+    restart: always
+    env_file: ./.env
+    environment:
+      MYSQL_DATABASE: $MYSQLDB_DATABASE
+      MYSQL_ROOT_PASSWORD: $MYSQLDB_ROOT_PASSWORD
+    volumes:
+      - ./mysql/data_mysql:/var/lib/mysql
+    ports:
+      - $MYSQLDB_LOCAL_PORT:$MYSQLDB_DOCKER_PORT
+    networks:
+      - backend
+
+  broker:
+    image: eclipse-mosquitto:2.0.11
+    #build: ./broker
+    container_name: mosquitto-container
+    restart: always
+    volumes:
+      - ./broker/mosquitto/config:/mosquitto/config
+      - ./broker/mosquitto/data:/mosquitto/data
+      - ./broker/mosquitto/log:/mosquitto/log
+    ports:
+      - $MQTT_LOCAL_PORT:$MQTT_PORT
+      - 9001:9001
+    networks:
+      - mqtt
+
+  python:
+    build: ./python
+    env_file: ./.env
+    container_name: python-container
+    restart: always
+#    command: ["python3", "server_mqtt.py"]
+#    command: sh -c "python3 ./server_mqtt.py"
+    command: sh -c "sleep 10s ; python3 ./server_mqtt.py"
+#    volumes:
+#      - ./python/app/:/usr/app/src
+    volumes:
+      - ./python/app_python:/usr/app/src
+    environment:
+      _HOST_MYSQL: mysql-container
+      _USER_MYSQL: $MYSQLDB_USER
+      _PORT_MYSQL: $MYSQLDB_DOCKER_PORT
+      _PASSWORD_MYSQL: $MYSQLDB_ROOT_PASSWORD
+      _HOST_MQTT: mosquitto-container
+      _PORT_MQTT: ${MQTT_PORT}
+      _TOPIC: $MQTT_TOPIC
+    depends_on:
+      - broker
+      - mysql
+    networks:
+      - mqtt
+      - backend
+
+  nodejs:
+    build: ./nodejs
+    env_file: ./.env
+    container_name: nodejs-container
+    restart: always
+    command: ["npm","start"]
+    volumes:
+      - ./nodejs/app_node:/app
+    environment:
+      NODE_ENV: "production"
+      MYSQL_DATABASE: $MYSQLDB_DATABASE
+      MYSQL_USER: $MYSQLDB_USER
+      MYSQL_ROOT_PASSWORD: $MYSQLDB_ROOT_PASSWORD
+      MYSQL_HOST: "mysql-container"
+      API_PORT: $NODE_DOCKER_PORT
+      API_HOST: "0.0.0.0"
+    ports:
+      - $NODE_LOCAL_PORT:$NODE_DOCKER_PORT
+    depends_on:
+      - mysql
+    networks:
+      - backend
+      - frontend
+
+  react:
+#    build: ./react
+    build:
+      context: ./react
+      args:
+        - REACT_APP_API_BASE_URL=$CLIENT_API_BASE_URL
+        - REACT_APP_API_FRONT_URL=$CLIENT_API_FRONT_URL
+    container_name: react-container
+    restart: always
+    command: ["yarn", "start"]
+    volumes:
+      - ./react/app_react:/app
+#    command: sh -c "yarn start"
+    environment:
+      - REACT_APP_API_BASE_URL=$CLIENT_API_BASE_URL
+      - REACT_APP_ROOT_BASE_URL=$CLIENT_ORIGIN
+    ports:
+      - $REACT_LOCAL_PORT:$REACT_DOCKER_PORT
+#    volumes:
+#      - ./react/app/:/app
+    depends_on:
+      - mysql
+    networks:
+      - frontend
+
+volumes:
+  data_mysql:
+  config:
+  data:
+  log:
+  app_node:
+  app_react:
+  app_python:
+
+networks:
+  backend:
+  frontend:
+  mqtt:

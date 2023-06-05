@@ -1,0 +1,118 @@
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+.formcad{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    margin-bottom: 5%;
+    width: 500px;
+    height: 600px;
+    background-color: rgb(18, 0, 31);
+    border:1px solid white;
+    color:white;
+    border-radius: 5px;
+}
+
+select{
+    height:10%;
+    margin-left:auto;
+    margin-right: auto;
+    margin-bottom: 10%;
+    margin-top: 5%;
+}
+
+.formcad input[type=text],
+.formcad input[type=password],
+.formcad input[as=select],
+.formcad button{
+    padding-left:10px;
+    display: block;
+    margin: 10px auto;
+    width: 70%;
+    border-radius: 5px;
+    font-size: 16px;
+    height: 35px;
+    max-width: 500px;
+    border: 1px solid #8a8a8a;
+}
+
+.formcad h3{
+    margin-bottom: 7%;
+}
+
+.formcad .h42{
+    margin-top: 3%;
+    cursor:pointer;
+}
+
+.container_cad{
+    overflow: auto;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+    color: white;
+    background-image: linear-gradient(to left, #4b00bb, #350069);
+}
+
+.formcad button{
+    background-color: rgb(37, 0, 97);
+    cursor: pointer;
+    border: 0;
+    color: white;
+    
+}
+
+
+
+.formcad button:active{
+    background-color: rgb(26, 0, 75);
+}
+
+.form_cad{
+    display:none;
+    margin-top: 7%;
+}
+
+.form_del{
+    display:none;
+    margin-top: 7%;
+}
+
+.form_up{
+    display:none;
+    margin-top: 7%;
+}
+
+.select_box{
+    display:flex;
+    flex-direction: row;
+
+}
+
+.select_box button{
+    background-color: rgb(37, 0, 97);
+    cursor: pointer;
+    width: 400px;
+    height: 150px;
+    font-size: 40px;
+    border: 0;
+    color: white;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+
+
+.select_box button:active{
+    background-color: rgb(26, 0, 75);
+}
