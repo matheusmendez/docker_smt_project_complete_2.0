@@ -33,7 +33,7 @@ function Home (){
                     (sensor) =>{
                         return(
                             <>
-                                <Card sensor={sensor.key_sensor} max={sensor.max} min={sensor.min} max_humi={sensor.max_humi} min_humi={sensor.min_humi} className="cardcon" name={sensor.name_sensor}/>
+                                <Card sensor={sensor.key_sensor} max_temp={sensor.max_temp} min_temp={sensor.min_temp} max_humi={sensor.max_humi} min_humi={sensor.min_humi} className="cardcon" name={sensor.name_sensor}/>
                             </>
                         )
                     }

@@ -25,7 +25,7 @@ function Cadastro () {
         )
         },[baseURL])
 
-    const inputvalues = async (name,id_sensor,loc,max, min) =>{
+    const inputvalues = async (name,id_sensor,loc,max, min,max_humi,min_humi) =>{
         try{
         await axios.post(`${baseURL}/cad_sensores`,{
             id_sensor: id_sensor,
@@ -33,6 +33,8 @@ function Cadastro () {
             loc: loc,
             max: max,
             min: min,
+            max_humi: max_humi,
+            min_humi: min_humi,
             responsavel: user
         }).then((res) =>{
             console.log(res)
@@ -53,10 +55,12 @@ function Cadastro () {
         var loc = values.loc_sensor
         var max = values.max
         var min = values.min
+        var max_humi = values.max_humi
+        var min_humi = values.min_humi
         
         console.log(max, min)
 
-        inputvalues(name,id_sensor,loc, max, min);
+        inputvalues(name,id_sensor,loc, max, min,max_humi,min_humi);
     }   
 
     const delValues = (values) => {
@@ -94,17 +98,19 @@ function Cadastro () {
             alert("Servidor offline!")
         }
     }
-
+/*
     const validationSensor = yup.object().shape({
         nome_sensor: yup.string().required("Este campo é obrigatório!"),
         loc_sensor: yup.string().required("Este campo é obrigatório!"),
         id_sensor: yup.string().required("Este campo é obrigatório!"),
         max: yup.number().required("Este campo é obrigatório!"),
         min: yup.number().required("Este campo é obrigatório!"),
+        max_humi: yup.number().required("Este campo é obrigatório!"),
+        min_humi: yup.number().required("Este campo é obrigatório!"),
 
     })
 
-
+*/
 
 
     const activeFormCad = () =>{
@@ -155,7 +161,7 @@ function Cadastro () {
                     <button className="button_cad" onClick={activeFormCal}>Update</button>
                 </div>
                 <div className="form_cad" id="form_cad">
-                    <Formik initialValues={{}} onSubmit={cadSensor} validationSchema={validationSensor}>
+                    <Formik initialValues={{}} onSubmit={cadSensor}>
                         <Form className="formcad" >
                             <h3>Inserção de sensor</h3>
                             <h5>Nome do sensor</h5>
@@ -173,6 +179,12 @@ function Cadastro () {
                             <h5>Limite inferior</h5>
                             <Field type="text" value={sensor.min} name="min" id="min" placeholder="Min"/>
                             <ErrorMessage component="spam" name="min" className="form-error"/>
+                            <h5>Limite superior</h5>
+                            <Field type="text" value={sensor.max_humi} name="max_humi" id="max_humi" placeholder="max_humi"/>
+                            <ErrorMessage component="spam" name="max_humi" className="form-error"/>
+                            <h5>Limite inferior</h5>
+                            <Field type="text" value={sensor.min_humi} name="min_humi" id="min_humi" placeholder="min_humi"/>
+                            <ErrorMessage component="spam" name="min_humi" className="form-error"/>
                             <button type="submit">Cadastrar</button>
                         </Form>
                     </Formik>

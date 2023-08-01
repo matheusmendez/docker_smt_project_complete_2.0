@@ -3,11 +3,15 @@ import userRoutes from "./routes/users.js"
 import cors from "cors";
 import {db} from "./db.js"
 import jwt  from "jsonwebtoken";
+import bodyParser from "body-parser";
 
 const app = express();
 
 app.use(express.json());
 app.use(cors());
+
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 
 app.use("/", userRoutes);
 
@@ -23,6 +27,19 @@ function generateAuthToken(userId) {
     return token;
   }
 
+app.post("/teste", (req,res)=>{
+    let sensor = req.body.sensor;
+    db.query("SELECT loss_temp, loss_humi from sensores where key_sensor = ?",[sensor], (err, result) =>{
+        if(err) console.log(err);
+        else{
+            console.log(result);
+            console.log(sensor)
+            const valores = [result[0].loss_temp,result[0].loss_humi].map(parseFloat);
+            res.send(valores);
+            console.log(valores)
+        }
+    })
+})
 
 app.post("/login",(req, res) =>{
     const user = req.body.user;
@@ -65,8 +82,10 @@ app.post("/cad_sensores", (req, res)=>{
    let loc = req.body.loc
    let max = req.body.max
    let min = req.body.min
+   let max_humi = req.body.max_humi
+   let min_humi = req.body.min_humi
    let responsavel = req.body.responsavel
-    db.query("INSERT INTO sensores(key_sensor, name_sensor, loc_sensor, max, min, responsavel) values (?,?,?,?,?,?)", [sensor,name,loc,max,min,responsavel] , (err, result) =>{
+    db.query("INSERT INTO sensores(key_sensor, name_sensor, loc_sensor, max_temp, min_temp,max_humi,min_humi, responsavel) values (?,?,?,?,?,?,?,?)", [sensor,name,loc,max,min,max_humi,min_humi,responsavel] , (err, result) =>{
         if (err) console.log(err);
         else res.send({msg:"Sensor cadastrado com sucesso!"});
     })
@@ -99,8 +118,7 @@ app.post("/card",(req, res) =>{
     db.query("SELECT * FROM tb_temp_humi WHERE id_sensor LIKE ? order by id desc limit 1", [card],(err, result) =>{
         if(err) console.log(err);
         else res.send(result)
-        console.log(card)
-        console.log(result);
+
     })
 });
 

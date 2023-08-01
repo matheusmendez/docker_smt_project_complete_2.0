@@ -12,7 +12,7 @@ class Menu extends Component {
     }
     render (){
     
-    const frontURL = process.env.REACT_APP_API_FRONT_URL 
+
 
     const logout = () =>{
         alert("Redirecionando para página de login!")
@@ -32,13 +32,13 @@ class Menu extends Component {
                         <a href={`/home`}>Home</a>
                     </li>
                     <li>
-                        <a href={`${frontURL}/modify`}>Modify</a>
+                        <a href={`/modify`}>Modify</a>
                     </li>
                     <li>
-                        <a href={`${frontURL}/relatorio`}>Report</a>
+                        <a href={`/relatorio`}>Report</a>
                     </li>
                     <li>
-                        <a onClick={logout} href={`${frontURL}`}>Logout</a>
+                        <a onClick={logout} href={`/home`}>Logout</a>
                     </li>
                 </ul>
                 <div id="mobile" >

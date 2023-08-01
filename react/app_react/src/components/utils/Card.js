@@ -45,20 +45,31 @@ function Card(Props){
                 {typeof values !== "undefined" && values.map(
                     (values) =>{
                     var date = new Date(values.date_time);
+            
                     var hora = date.getUTCHours();
                     var min = date.getUTCMinutes();
                 
-                    var f = `${hora}:${min}`
+                     function teste () {
+                        if(hora>12){
+                            return ":00 PM";
+                        }
+                        else{
+                            return ":00 AM";
+                        }
+                    }
+
+                    var f = `${hora}:${min}${teste()}`
+
                      return(
                             <> 
                                     <Link to={`/rel_inc?sensor=${Props.sensor}&name=${Props.name}`} id="Link">
                                         <div className="card" id="temp"  onClick={window.open(`${frontURL}/rel_inc?sensor=${Props.sensor}`)} >
                                         <h2>{Props.name}</h2>
-                                        <h2 id="temp" style={{color: parseFloat(values.temp_value) >=  parseFloat(Props.max) ? "Tomato" : parseFloat(values.temp_value) <= parseFloat(Props.min) ? "SkyBlue" : "White"}}>
+                                        <h2 id="temp" style={{color: parseFloat(values.temp_value) >=  parseFloat(Props.max_temp) ? "Tomato" : parseFloat(values.temp_value) <= parseFloat(Props.min_temp) ? "SkyBlue" : "White"}}>
                                             Temperatura: {values.temp_value} °C
                                         </h2>
                                         <h2 style={{color: parseFloat(values.humi_value) >=  parseFloat(Props.max_humi) ? "Tomato" : parseFloat(values.humi_value) <= parseFloat(Props.min_humi) ? "SkyBlue" : "White",}}>
-                                            Humidade: {values.humi_value} %
+                                            Umidade: {values.humi_value} %
                                         </h2>
                                         <h5>Última atualização: {f}</h5>
                                         </div>
